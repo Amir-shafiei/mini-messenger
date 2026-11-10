@@ -7,6 +7,7 @@ import (
 	"mini-messenger/internal/model"
 	"mini-messenger/internal/service/auth"
 	"net/http"
+	"net/url"
 	"strings"
 	"time"
 )
@@ -25,7 +26,7 @@ func NewHandler(hub *Hub, authenticate *auth.Authenticate, origin string) *Handl
 		origin:       origin,
 		upgrader: websocket.Upgrader{
 			HandshakeTimeout: 5 * time.Second,
-			CheckOrigin:      func(r *http.Request) bool { return r.Header.Get("Origin") == origin },
+			CheckOrigin:      func(r *http.Request) bool { return originAllowed(origin, r.Header.Get("Origin")) },
 		},
 	}
 }
@@ -36,7 +37,7 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "method not allowed", 405)
 		return
 	}
-	if r.Header.Get("Origin") != h.origin {
+	if !originAllowed(h.origin, r.Header.Get("Origin")) {
 		http.Error(w, "forbidden origin", 403)
 		return
 	}
@@ -87,4 +88,20 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	go c.writeLoop()
 	c.readLoop()
+}
+
+func originAllowed(expected, actual string) bool {
+	if actual == expected {
+		return true
+	}
+	want, wantErr := url.Parse(expected)
+	got, gotErr := url.Parse(actual)
+	if wantErr != nil || gotErr != nil || want.Scheme != "http" || got.Scheme != "http" || want.Port() != got.Port() {
+		return false
+	}
+	return localOriginHost(want.Hostname()) && localOriginHost(got.Hostname())
+}
+
+func localOriginHost(host string) bool {
+	return host == "localhost" || host == "127.0.0.1" || host == "::1"
 }

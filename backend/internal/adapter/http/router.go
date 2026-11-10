@@ -94,7 +94,7 @@ func (h *Handler) serve(w http.ResponseWriter, r *http.Request) {
 			writeError(w, 405, "method_not_allowed")
 			return
 		}
-		if r.Method == http.MethodPost && r.Header.Get("Origin") != h.config.Origin {
+		if r.Method == http.MethodPost && !originAllowed(h.config.Origin, r.Header.Get("Origin")) {
 			writeError(w, 403, "forbidden_origin")
 			return
 		}
@@ -121,7 +121,7 @@ func (h *Handler) serve(w http.ResponseWriter, r *http.Request) {
 		writeError(w, 405, "method_not_allowed")
 		return
 	}
-	if method == http.MethodPost && r.Header.Get("Origin") != h.config.Origin {
+	if method == http.MethodPost && !originAllowed(h.config.Origin, r.Header.Get("Origin")) {
 		writeError(w, 403, "forbidden_origin")
 		return
 	}
@@ -135,4 +135,22 @@ func (h *Handler) serve(w http.ResponseWriter, r *http.Request) {
 	case "/api/v1/auth/logout":
 		h.authenticated(w, r, h.logoutHandler)
 	}
+}
+
+// Local Docker links may use either loopback name. The scheme and port must
+// still match; non-local and HTTPS origins always require an exact match.
+func originAllowed(expected, actual string) bool {
+	if actual == expected {
+		return true
+	}
+	want, wantErr := url.Parse(expected)
+	got, gotErr := url.Parse(actual)
+	if wantErr != nil || gotErr != nil || want.Scheme != "http" || got.Scheme != "http" || want.Port() != got.Port() {
+		return false
+	}
+	return localOriginHost(want.Hostname()) && localOriginHost(got.Hostname())
+}
+
+func localOriginHost(host string) bool {
+	return host == "localhost" || host == "127.0.0.1" || host == "::1"
 }
