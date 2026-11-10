@@ -1,0 +1,5 @@
+BEGIN;
+DROP TABLE messages;
+DROP TABLE sessions;
+DROP TABLE users;
+COMMIT;

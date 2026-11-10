@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta name="theme-color" content="#f7f8fc" />
+    <title>گفت‌وگو · یه سلام، یه شروع</title>
+    <link rel="preload" href="/fonts/Vazir-Regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/style.css?v=20261109-login-depth" />
+    <link rel="stylesheet" href="/login.css?v=20261109-login-depth" />
+    <script src="/app.js?v=20261109-login-depth" type="module"></script>
+  </head>
+  <body>
+    <main>
+      <section id="login-view" class="login-layout" hidden>
+        <div class="intro">
+          <span class="brand"
+            ><span class="brand-mark" aria-hidden="true"></span>گفت‌وگو<span
+              class="brand-dot"
+              aria-hidden="true"
+            ></span
+          ></span>
+          <div class="intro-kicker">یه سلام، یه شروع</div>
+          <h1>فاصله کمتر،<br /><span>حرف بیشتر.</span></h1>
+          <p>یه پیام کوچیک می‌تونه حال یه نفر رو بهتر کنه.<br />از یه سلام شروع کن.</p>
+          <div class="login-scene" aria-hidden="true">
+            <div class="scene-orbit orbit-back"></div>
+            <div class="scene-orbit orbit-front"></div>
+            <div class="scene-stage">
+              <div class="scene-card scene-greeting">
+                <div class="scene-person">
+                  <span class="scene-avatar">م</span><span>مهسا<small>همین الان</small></span
+                  ><i></i>
+                </div>
+                <p>هی! امروز چه خبر؟</p>
+                <div class="scene-time">۱۰:۲۴ <span>✓✓</span></div>
+              </div>
+              <div class="scene-card scene-reply">
+                <div class="scene-person">
+                  <span class="scene-avatar">آ</span><span>آرین<small>همین الان</small></span>
+                </div>
+                <p>سلام! کلی حرف دارم برات.</p>
+                <div class="scene-time">۱۰:۲۴ <span>✓✓</span></div>
+              </div>
+              <div class="scene-typing"><span></span><span></span><span></span></div>
+              <div class="scene-heart">
+                <svg viewBox="0 0 32 32" fill="currentColor">
+                  <path d="M16 27 5 16C-3 7 9-1 16 8 23-1 35 7 27 16Z" />
+                </svg>
+              </div>
+              <div class="scene-dot"></div>
+            </div>
+          </div>
+          <div class="intro-note">
+            <span class="status-dot"></span>یه جای جمع‌وجور برای گپ‌های دونفره
+          </div>
+        </div>
+        <form id="login-form" class="login-card">
+          <span class="eyebrow">خوش اومدی</span>
+          <h2>بریم سراغ گپ‌ها؟</h2>
+          <p class="muted">وارد حسابت شو تا حرف‌هامون رو ادامه بدیم.</p>
+          <label for="username">نام کاربری</label
+          ><input
+            id="username"
+            autocomplete="username"
+            dir="ltr"
+            required
+            maxlength="32"
+            placeholder="مثلاً alice"
+          />
+          <label for="password">رمز عبور</label>
+          <div class="password-wrap">
+            <input
+              id="password"
+              type="password"
+              autocomplete="current-password"
+              dir="ltr"
+              required
+            /><button id="show-password" class="text-button" type="button" aria-pressed="false">
+              نمایش
+            </button>
+          </div>
+          <button id="login-button" type="submit" class="primary">بزن بریم</button>
+          <p id="login-error" class="error" role="alert"></p>
+          <details open class="demo-accounts">
+            <summary>می‌خوای امتحانش کنی؟</summary>
+            <p>روی یه حساب بزن تا اسم و رمزش پر بشه؛ بعد «بزن بریم» رو بزن.</p>
+            <div class="demo-buttons" role="group" aria-label="پر کردن حساب آزمایشی">
+              <button type="button" data-demo-user="alice">alice</button
+              ><button type="button" data-demo-user="bob">bob</button
+              ><button type="button" data-demo-user="charlie">charlie</button>
+            </div>
+            <p>رمز هر سه حساب:</p>
+            <code class="demo-password" dir="ltr">LocalDemo-2026!</code>
+            <p id="demo-status" role="status"></p>
+          </details>
+        </form>
+      </section>
+      <section id="app-view" class="messenger" hidden>
+        <aside>
+          <div class="sidebar-head">
+            <span class="brand"
+              ><span class="brand-mark" aria-hidden="true"></span>گفت‌وگو<span
+                class="brand-dot"
+                aria-hidden="true"
+              ></span></span
+            ><small>یه سلام، یه شروع.</small>
+          </div>
+          <div class="contacts-heading">
+            <h2>گپ‌های من</h2>
+            <button id="refresh-users" class="text-button" hidden>دوباره بگیر</button>
+          </div>
+          <label class="sr-only" for="search">اسم کی رو می‌گردی؟</label>
+          <div class="search-wrap">
+            <span data-icon="search" aria-hidden="true"></span
+            ><input id="search" placeholder="اسم کی رو می‌گردی؟" autocomplete="off" /><button
+              id="clear-search"
+              class="icon-button"
+              type="button"
+              aria-label="پاک کردن جست‌وجو"
+              hidden
+            >
+              ×
+            </button>
+          </div>
+          <div class="filters" role="group" aria-label="فیلتر گپ‌ها">
+            <button id="filter-all" type="button" aria-pressed="true">همه</button
+            ><button id="filter-unread" type="button" aria-pressed="false">
+              نخونده‌ها <span id="unread-total">۰</span>
+            </button>
+          </div>
+          <p id="users-error" class="error" role="alert" hidden></p>
+          <nav id="contacts" aria-label="گپ‌ها"></nav>
+          <p id="unread-announcement" class="sr-only" role="status" aria-atomic="true"></p>
+          <div class="account">
+            <span class="avatar" id="my-avatar" aria-hidden="true"></span>
+            <div><strong id="my-name"></strong><small>حساب من</small></div>
+            <button id="logout" class="text-button" title="خروج از حساب">خروج</button>
+          </div>
+        </aside>
+        <section class="conversation">
+          <header>
+            <button
+              id="back-to-contacts"
+              type="button"
+              class="back-button"
+              aria-label="برگشت به گپ‌ها"
+            >
+              <span data-icon="back" aria-hidden="true"></span>
+            </button>
+            <span id="peer-avatar" class="avatar header-avatar" aria-hidden="true">گ</span>
+            <div class="peer-info">
+              <h2 id="peer-name">گپ تازه‌ای شروع کنیم؟</h2>
+              <small id="peer-status" class="peer-status"></small>
+            </div>
+            <span id="connection" class="connection" role="status">داریم وصل می‌شیم…</span>
+          </header>
+          <div id="app-error" class="error banner" role="alert" hidden></div>
+          <div id="empty" class="empty">
+            <div class="empty-icon" aria-hidden="true"><span></span><span></span></div>
+            <span class="eyebrow">حرف‌های خوب از یه سلام شروع می‌شن</span>
+            <h2>امروز به کی سلام کنیم؟</h2>
+            <p>یکی رو از گپ‌هات انتخاب کن.<br />بقیه‌ش با تو!</p>
+            <button id="start-chat" class="primary" type="button">پیدا کردن یه دوست</button>
+          </div>
+          <div id="chat-area" hidden>
+            <div class="history-tools">
+              <button id="older" class="text-button" hidden>پیام‌های قبلی</button
+              ><span id="history-status" role="status"></span>
+            </div>
+            <p id="history-error" class="error" role="alert" hidden></p>
+            <button id="history-retry" class="text-button" hidden>یه بار دیگه</button>
+            <p id="read-error" class="error" role="status" hidden></p>
+            <div id="messages" aria-label="پیام‌ها"></div>
+          </div>
+          <button id="jump-latest" type="button" class="jump-latest" hidden>
+            <span data-icon="down" aria-hidden="true"></span>برو به آخر گپ
+          </button>
+          <form id="send-form" class="composer" hidden>
+            <label class="sr-only" for="message">پیامت رو بنویس</label
+            ><textarea id="message" rows="1" placeholder="چی تو ذهنته؟" required></textarea>
+            <p id="send-error" class="error" role="alert" hidden></p>
+            <div class="composer-bottom">
+              <div class="composer-tools">
+                <button
+                  id="emoji-toggle"
+                  type="button"
+                  class="icon-button"
+                  aria-label="انتخاب ایموجی"
+                  aria-expanded="false"
+                  aria-controls="emoji-picker"
+                >
+                  <span data-icon="smile" aria-hidden="true"></span></button
+                ><small id="count">Enter برای ارسال · Shift + Enter خط بعد</small>
+              </div>
+              <button id="send" class="primary" type="submit">بفرست</button>
+            </div>
+            <div
+              id="emoji-picker"
+              class="emoji-picker"
+              role="group"
+              aria-label="ایموجی‌ها"
+              hidden
+            ></div>
+          </form>
+        </section>
+      </section>
+      <div id="boot" class="boot" role="status">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <p>یه لحظه، داریم آماده می‌شیم…</p>
+      </div>
+      <div id="toast" class="toast" role="status" hidden></div>
+    </main>
+  </body>
+</html>

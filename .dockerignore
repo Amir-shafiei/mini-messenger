@@ -1,0 +1,6 @@
+.git
+.local.json
+.env
+**/*.exe
+**/*.pem
+**/*.key

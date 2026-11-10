@@ -1,0 +1,398 @@
+/* Login only. The chat workspace keeps its own styling in style.css. */
+#login-view {
+  grid-template-columns: 1.12fr 1fr;
+  border-radius: 26px;
+  box-shadow: 0 24px 80px #1725500c;
+}
+#login-view .intro {
+  background: #192747;
+  padding: 36px 48px 30px;
+  color: #fff;
+  overflow: hidden;
+  isolation: isolate;
+}
+#login-view .intro .brand {
+  color: #fff;
+  font-size: 25px;
+}
+#login-view .intro .brand-mark {
+  background: #8196ff;
+}
+#login-view .intro .brand-dot {
+  background: #8ce3bd;
+}
+#login-view .intro-kicker {
+  margin-top: 42px;
+  color: #bbc7e2;
+  font-size: 12px;
+  letter-spacing: 0;
+}
+#login-view .intro h1 {
+  margin: 14px 0 18px;
+  font-size: clamp(38px, 4vw, 58px);
+  line-height: 1.5;
+  letter-spacing: -1.7px;
+}
+#login-view .intro h1 span {
+  color: #a9b8ff;
+}
+#login-view .intro p {
+  color: #c6cfe1;
+  font-size: 14px;
+  line-height: 2;
+  margin-bottom: 0;
+}
+#login-view .intro-note {
+  color: #c6cfe1;
+  font-size: 11px;
+  gap: 9px;
+  padding-top: 18px;
+}
+#login-view .intro-note .status-dot {
+  background: #8ce3bd;
+}
+#login-view .login-card {
+  max-width: 470px;
+  padding: 38px 44px;
+}
+#login-view .login-card .eyebrow {
+  display: inline-block;
+  background: #eef1ff;
+  color: #4259b4;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  margin-bottom: 18px;
+}
+#login-view .login-card h2 {
+  font-size: 29px;
+  margin-bottom: 10px;
+}
+#login-view .login-card .muted {
+  font-size: 13px;
+}
+#login-view .login-card label {
+  margin-top: 22px;
+}
+#login-view .login-card input {
+  background: #fbfcff;
+  border-color: #d9dfed;
+  border-radius: 11px;
+  transition:
+    border-color 160ms,
+    box-shadow 160ms;
+}
+#login-view .login-card input:focus {
+  background: #fff;
+  border-color: #7388df;
+  box-shadow: 0 0 0 4px #3854c80a;
+}
+#login-view .login-card .primary {
+  box-shadow: 0 7px 16px #3854c81b;
+  margin-top: 24px;
+}
+#login-view .demo-accounts {
+  border: 1px solid #e1e6f1;
+  border-radius: 12px;
+  background: #f9faff;
+  padding: 14px 16px;
+  margin-top: 20px;
+  font-size: 12px;
+}
+#login-view .demo-accounts summary {
+  font-size: 13px;
+}
+#login-view .demo-buttons {
+  gap: 7px;
+  margin: 10px 0;
+}
+#login-view .demo-buttons button {
+  flex: 1;
+  background: #fff;
+  padding: 8px 12px;
+}
+#login-view .demo-buttons button:hover {
+  background: #edf0ff;
+}
+#login-view .demo-password {
+  padding: 3px 0;
+  background: transparent;
+  font-size: 14px;
+}
+/* Perspective, extruded edges and separate depth planes produce the illustration. */
+.login-scene {
+  width: 100%;
+  max-width: 470px;
+  height: 335px;
+  margin: 16px auto 8px;
+  position: relative;
+  perspective: 1000px;
+}
+.scene-stage {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transition: transform 240ms ease-out;
+}
+.scene-orbit {
+  position: absolute;
+  width: 390px;
+  height: 210px;
+  border: 1px solid #ffffff15;
+  border-radius: 50%;
+  transform: rotate(-25deg);
+  pointer-events: none;
+}
+.orbit-back {
+  right: -25px;
+  top: 54px;
+}
+.orbit-front {
+  left: -40px;
+  bottom: 4px;
+  width: 440px;
+  height: 240px;
+  border-style: dashed;
+}
+.scene-card {
+  position: absolute;
+  width: 270px;
+  border-radius: 24px;
+  padding: 20px 22px 16px;
+  backface-visibility: hidden;
+}
+.scene-greeting {
+  top: 12px;
+  right: 6px;
+  background: #f8faff;
+  border: 1px solid #fff;
+  color: #202d50;
+  transform: rotateZ(-9deg) rotateY(-14deg) translateZ(25px);
+  box-shadow:
+    1px 1px #c5cee9,
+    2px 2px #c5cee9,
+    3px 3px #c5cee9,
+    4px 4px #c5cee9,
+    5px 5px #c5cee9,
+    6px 6px #a3b1d7,
+    12px 24px 30px #080f2340;
+}
+.scene-reply {
+  top: 150px;
+  left: 2px;
+  background: #667cf0;
+  border: 1px solid #95a5ff;
+  color: white;
+  transform: rotateZ(8deg) rotateY(12deg) translateZ(65px);
+  box-shadow:
+    -1px 1px #4558b6,
+    -2px 2px #4558b6,
+    -3px 3px #4558b6,
+    -4px 4px #4558b6,
+    -5px 5px #4558b6,
+    -6px 6px #354897,
+    -12px 22px 30px #080f2355;
+}
+.scene-person {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  font-weight: 500;
+}
+.scene-avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 12px;
+  background: #e3e9fa;
+  color: #445d9c;
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+}
+.scene-reply .scene-avatar {
+  background: #d9e0ff;
+  color: #4156b6;
+}
+.scene-person small {
+  display: block;
+  font-size: 9px;
+  opacity: 0.7;
+  margin-top: 2px;
+  font-weight: 400;
+}
+.scene-person i {
+  width: 7px;
+  height: 7px;
+  background: #36a783;
+  border-radius: 50%;
+  margin-right: auto;
+}
+#login-view .scene-card p {
+  color: inherit;
+  font-size: 16px;
+  line-height: 1.8;
+  margin: 16px 0 10px;
+  white-space: nowrap;
+}
+.scene-time {
+  font-size: 10px;
+  text-align: left;
+  opacity: 0.85;
+}
+.scene-time span {
+  color: #36947a;
+  padding-right: 4px;
+}
+.scene-reply .scene-time span {
+  color: #dbfff0;
+}
+.scene-typing {
+  position: absolute;
+  bottom: 13px;
+  right: 32px;
+  display: flex;
+  gap: 7px;
+  background: #fbfcff;
+  border-radius: 17px 17px 5px 17px;
+  padding: 18px 23px;
+  transform: rotateZ(-9deg) translateZ(85px);
+  box-shadow:
+    3px 5px #bac6e6,
+    8px 15px 20px #0a132a40;
+}
+.scene-typing span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #8091bb;
+}
+.scene-heart {
+  width: 53px;
+  height: 53px;
+  position: absolute;
+  top: 82px;
+  left: 14px;
+  display: grid;
+  place-items: center;
+  background: #f5c6ba;
+  color: #ba5f65;
+  border: 1px solid #ffe6dc;
+  border-radius: 18px;
+  transform: rotateZ(-16deg) rotateY(12deg) translateZ(90px);
+  box-shadow:
+    -3px 5px #bb8989,
+    -6px 12px 18px #0a132a40;
+}
+.scene-heart svg {
+  width: 25px;
+  height: 25px;
+}
+.scene-dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 25%, #c6f2dd, #68ad93 65%, #447963);
+  position: absolute;
+  right: 5px;
+  bottom: 90px;
+  box-shadow: 5px 8px 15px #0a132a40;
+  transform: translateZ(55px);
+}
+@media (max-width: 1050px) {
+  #login-view .intro {
+    padding: 30px;
+  }
+  #login-view .login-card {
+    padding: 30px;
+  }
+  .login-scene {
+    height: 310px;
+  }
+  .scene-card {
+    width: 235px;
+    padding: 17px;
+  }
+  #login-view .scene-card p {
+    font-size: 14px;
+  }
+  .scene-reply {
+    top: 145px;
+  }
+}
+@media (max-width: 700px) {
+  #login-view {
+    border-radius: 0;
+    display: block;
+  }
+  #login-view .intro {
+    padding: 24px 26px 16px;
+  }
+  #login-view .intro .brand {
+    font-size: 22px;
+  }
+  #login-view .intro-kicker {
+    margin-top: 20px;
+  }
+  #login-view .intro h1 {
+    font-size: 32px;
+    letter-spacing: -1px;
+    margin: 8px 0 0;
+  }
+  #login-view .intro h1 br {
+    display: block;
+  }
+  #login-view .intro > p,
+  #login-view .intro-note {
+    display: none;
+  }
+  .login-scene {
+    max-width: 360px;
+    height: 245px;
+    margin: 8px auto 0;
+  }
+  .scene-stage {
+    scale: 0.82;
+    transform-origin: center center;
+  }
+  .scene-greeting {
+    right: -8px;
+    top: 0;
+  }
+  .scene-reply {
+    left: -9px;
+    top: 130px;
+  }
+  .scene-typing {
+    right: 12px;
+    bottom: -12px;
+  }
+  .scene-heart {
+    top: 57px;
+    left: -6px;
+  }
+  .scene-dot {
+    right: -15px;
+    bottom: 42px;
+  }
+  .scene-orbit {
+    width: 300px;
+    height: 180px;
+  }
+  #login-view .login-card {
+    padding: 30px 26px;
+  }
+  #login-view .login-card h2 {
+    font-size: 25px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scene-stage {
+    transition: none;
+    transform: none;
+  }
+  #login-view .login-card input {
+    transition: none;
+  }
+}

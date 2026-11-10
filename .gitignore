@@ -1,0 +1,7 @@
+*.exe
+.env
+coverage.out
+.local.json
+
+*.pem
+*.key
